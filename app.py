@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.utils import get
 from random import randint, random
 
 description = '''Bot de jeu du serveur Citadelle'''
@@ -23,12 +24,21 @@ async def roll(ctx, limit=6):
     await ctx.send(result)
 
 @bot.command()
-async def createRole(ctx, name):
-    author = ctx.message.author
-    await bot.create_role(author.server, name="Default")
+async def addrole(ctx, *, name):
+	guild = ctx.guild
+	await guild.create_role(name=name)
+	await ctx.send(f'Role `{name}` has been created')
+
+@bot.command(pass_context=True)
+async def giverole(ctx, user: discord.Member, role: discord.Role):
+    await user.add_roles(role)
+    await ctx.send(f"hey {ctx.author.name}, {user.name} has been giving a role called: {role.name}")
 
 @bot.command()
-async def addRole(ctx, role, pseudo):
-    pass
+async def new(ctx, arg1, arg2):
+    guild = ctx.message.guild
+
+    category = await ctx.guild.create_category(arg1)
+    await guild.create_text_channel(arg2, category=category)
 
 bot.run('MTAxMjM5MzU4MjU2MjM4NTk3MA.Gl0SpF.63vp2vdjIZy6xZNiLPqNlBlhUiI8kqTgX5xElk')
