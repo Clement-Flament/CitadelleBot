@@ -41,4 +41,4 @@ async def new(ctx, arg1, arg2):
     category = await ctx.guild.create_category(arg1)
     await guild.create_text_channel(arg2, category=category)
 
-bot.run('MTAxMjM5MzU4MjU2MjM4NTk3MA.Gl0SpF.63vp2vdjIZy6xZNiLPqNlBlhUiI8kqTgX5xElk')
+bot.run('TOKEN')
